@@ -1,0 +1,402 @@
+<html ng-app = "gnomeApp">
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Sail" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/mobile.css">
+	<link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="css/mobile.css" />
+	<link rel="stylesheet" href = "css/bootstrap.min.css">
+	<title>Course Gnome: GWU Course Search</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/javascript.js"></script>
+</head>
+<body ng-controller = "gnomeController">
+	<img id="logo" src="img/logo_2.svg"/>
+	<div id ="tagline">GWU's<br><span style="font-weight:bold;font-size:70">PREMIER</span><br>Course Search</div>
+	<div id="signIn"><a href = "http://google.com">SIGN IN/REGISTER</a></div>
+	<div id="aboutx"><a href = "/mobile">ABOUT</a></div>
+	<div style = "clear:both"></div>
+	<div id="search">
+		<div id="fitButton" ng-click="fitButton()">Only show courses that fit in my schedule</div>
+		<div id="openButton" ng-click="openButton()">Only show open courses</div>
+		<span class = "inputLabel">Keywords</span><br>
+		<input tabindex="1" style = "height:100px;font-size: 40;margin-top: 1%" class = "form-control" type="text" ng-model="courseName" ng-keypress = "pressForCourses($event)" placeholder="History, arabic, computer, etc."></input><br><br>
+		<span class = "inputLabel">Department/Subject</span><br>
+		<select tabindex="2" ng-model="subjectName" ng-keypress = "pressForCourses($event)" class="form-control" style="font-size:40;height:100px;margin-top: 1%">
+			<option value="">Department/Subject</option>
+			<option value="ACA" >Academy for Classical Acting (ACA)</option>
+			<option value="ACCY" >Accountancy (ACCY)</option>
+			<option value="AMST" >American Studies (AMST)</option>
+			<option value="ANAT" >Anatomy &amp; Regenerative Biology (ANAT)</option>
+			<option value="ANES" >Anesthesiology (ANES)</option>
+			<option value="ANTH" >Anthropology (ANTH)</option>
+			<option value="APSC" >Applied Science (APSC)</option>
+			<option value="ARAB" >Arabic (ARAB)</option>
+			<option value="ARTH" >Art Therapy (ARTH)</option>
+			<option value="AH" >Art/Art History (AH)</option>
+			<option value="FA" >Art/Fine Arts (FA)</option>
+			<option value="ASTR" >Astronomy (ASTR)</option>
+			<option value="BIOC" >Biochemistry (BIOC)</option>
+			<option value="BISC" >Biological Sciences (BISC)</option>
+			<option value="BMSC" >Biomedical Sciences (BMSC)</option>
+			<option value="BIOS" >Biostatistics (BIOS)</option>
+			<option value="BLOC" >Blocked room (BLOC)</option>
+			<option value="BADM" >Business Administration (BADM)</option>
+			<option value="CHEM" >Chemistry (CHEM)</option>
+			<option value="CHIN" >Chinese (CHIN)</option>
+			<option value="CE" >Civil Engineering (CE)</option>
+			<option value="CLAS" >Classical Studies (CLAS)</option>
+			<option value="CLS" >Clinical Laboratory Science (CLS)</option>
+			<option value="CL" >Clinical Leadership (CL)</option>
+			<option value="CML" >Clinical Mgt &amp; Leadership (CML)</option>
+			<option value="CRA" >Clinical Research Admin (CRA)</option>
+			<option value="CPS" >College/Professional Studies (CPS)</option>
+			<option value="CCAS" >Columbian College (CCAS)</option>
+			<option value="COMM" >Communication (COMM)</option>
+			<option value="CPMD" >Computer Medicine (CPMD)</option>
+			<option value="CSCI" >Computer Science (CSCI)</option>
+			<option value="CORC" >Consort-CorcoranCollArt+Design (CORC)</option>
+			<option value="AU" >Consortium-American University (AU)</option>
+			<option value="CU" >Consortium-Catholic University (CU)</option>
+			<option value="GC" >Consortium-Gallaudet College (GC)</option>
+			<option value="GMU" >Consortium-George Mason Univ (GMU)</option>
+			<option value="GL" >Consortium-Georgetown Law Cen (GL)</option>
+			<option value="GU" >Consortium-Georgetown Univ (GU)</option>
+			<option value="HU" >Consortium-Howard University (HU)</option>
+			<option value="MMU" >Consortium-Marymount Univ (MMU)</option>
+			<option value="TC" >Consortium-Trinity College (TC)</option>
+			<option value="UMD" >Consortium-Univ of Maryland (UMD)</option>
+			<option value="UDC" >Consortium-University of D. C. (UDC)</option>
+			<option value="COOP" >Cooperative Education Program (COOP)</option>
+			<option value="CNSL" >Counseling (CNSL)</option>
+			<option value="DNSC" >Decision Sciences (DNSC)</option>
+			<option value="DERM" >Dermatology (DERM)</option>
+			<option value="EALL" >East Asian Lang &amp; Lit (EALL)</option>
+			<option value="ECON" >Economics (ECON)</option>
+			<option value="EDUC" >Educational Leadership (EDUC)</option>
+			<option value="ESIA" >El't Sch International Affairs (ESIA)</option>
+			<option value="ECE" >Electrical &amp; Computer Engring (ECE)</option>
+			<option value="EHS" >Emergency Health Services (EHS)</option>
+			<option value="EMED" >Emergency Medicine (EMED)</option>
+			<option value="ENGL" >English (ENGL)</option>
+			<option value="EAP" >English for Academic Purposes (EAP)</option>
+			<option value="EMSE" >Engr Mgt &amp; Systems Engineering (EMSE)</option>
+			<option value="ENRP" >Environmental Resource Policy (ENRP)</option>
+			<option value="EPID" >Epidemiology (EPID)</option>
+			<option value="EXCH" >Exchange Program (EXCH)</option>
+			<option value="EMBA" >Executive Master of Bus Adm (EMBA)</option>
+			<option value="EXSA" >Exercise &amp; Sports Activities (EXSA)</option>
+			<option value="EXSC" >Exercise Science (EXSC)</option>
+			<option value="FILM" >Film Studies (FILM)</option>
+			<option value="FINA" >Finance (FINA)</option>
+			<option value="FORS" >Forensic Sciences (FORS)</option>
+			<option value="FREN" >French (FREN)</option>
+			<option value="GEOG" >Geography (GEOG)</option>
+			<option value="GEOL" >Geology (GEOL)</option>
+			<option value="GER" >Germanic Language &amp; Literature (GER)</option>
+			<option value="GREK" >Greek (GREK)</option>
+			<option value="HCQ" >Health Care Quality (HCQ)</option>
+			<option value="HCS" >Health Care Science (HCS)</option>
+			<option value="HSCI" >Health Sciences Programs (HSCI)</option>
+			<option value="HLWL" >Health and Wellness (HLWL)</option>
+			<option value="HSML" >HealthServicesMgt&amp;Leadership (HSML)</option>
+			<option value="HEBR" >Hebrew (HEBR)</option>
+			<option value="HIST" >History (HIST)</option>
+			<option value="HOMP" >Hominid Paleobiology (HOMP)</option>
+			<option value="HONR" >Honors (HONR)</option>
+			<option value="HDEV" >Human Development (HDEV)</option>
+			<option value="HOL" >Human Organizational Learning (HOL)</option>
+			<option value="HMSC" >Human Sciences (HMSC)</option>
+			<option value="HMSR" >Human Services (HMSR)</option>
+			<option value="HMN" >Humanities (HMN)</option>
+			<option value="IMMU" >Immunology (IMMU)</option>
+			<option value="ISTM" >InfSystemsTechnologyManagement (ISTM)</option>
+			<option value="PSIS" >Integrated Inf, Sci, and Tech (PSIS)</option>
+			<option value="IDIS" >Interdisciplinary Courses (IDIS)</option>
+			<option value="INTD" >Interior Design (INTD)</option>
+			<option value="IAFF" >International Affairs (IAFF)</option>
+			<option value="IBUS" >International Business (IBUS)</option>
+			<option value="ITAL" >Italian (ITAL)</option>
+			<option value="JAPN" >Japanese (JAPN)</option>
+			<option value="JSTD" >Judaic Studies (JSTD)</option>
+			<option value="KOR" >Korean (KOR)</option>
+			<option value="LATN" >Latin (LATN)</option>
+			<option value="LAW" >Law (LAW)</option>
+			<option value="LGAF" >Legislative Affairs (LGAF)</option>
+			<option value="LING" >Linguistics (LING)</option>
+			<option value="MGT" >Management (MGT)</option>
+			<option value="MKTG" >Marketing (MKTG)</option>
+			<option value="MBAD" >Master of Business Administrtn (MBAD)</option>
+			<option value="MATH" >Mathematics (MATH)</option>
+			<option value="MAE" >Mechanical &amp; Aerospace Engring (MAE)</option>
+			<option value="MED" >Medicine (MED)</option>
+			<option value="MICR" >Microbio, Immun &amp; Tropical Med (MICR)</option>
+			<option value="ONC" >Molecular &amp; Cellular Oncology (ONC)</option>
+			<option value="MMED" >Molecular Medicine (MMED)</option>
+			<option value="MSTD" >Museum Studies (MSTD)</option>
+			<option value="MUS" >Music (MUS)</option>
+			<option value="NDSB" >Naval Dental School Bethesda (NDSB)</option>
+			<option value="NSC" >Naval Science (NSC)</option>
+			<option value="NEUR" >Neurology (NEUR)</option>
+			<option value="NSUR" >Neurosurgery (NSUR)</option>
+			<option value="NURS" >Nursing (NURS)</option>
+			<option value="OB&amp;G" >Obstetrics &amp; Gynecology (OB&amp;G)</option>
+			<option value="OPHT" >Opthalmology (OPHT)</option>
+			<option value="ORSC" >Organizational Sciences (ORSC)</option>
+			<option value="ORTH" >Orthopaedic Surgery (ORTH)</option>
+			<option value="PSLX" >Paralegal Studies (PSLX)</option>
+			<option value="PATH" >Pathology (PATH)</option>
+			<option value="PSTD" >Peace Studies (PSTD)</option>
+			<option value="PED" >Pediatrics (PED)</option>
+			<option value="PERS" >Persian (PERS)</option>
+			<option value="PHRG" >Pharmacogenomics (PHRG)</option>
+			<option value="PHAR" >Pharmacology (PHAR)</option>
+			<option value="PHIL" >Philosophy (PHIL)</option>
+			<option value="PT" >Physical Therapy (PT)</option>
+			<option value="PA" >Physician Assistant (PA)</option>
+			<option value="PHYS" >Physics (PHYS)</option>
+			<option value="PHYL" >Physiology (PHYL)</option>
+			<option value="PMGT" >Political Management (PMGT)</option>
+			<option value="PPSY" >Political Psychology (PPSY)</option>
+			<option value="PSC" >Political Science (PSC)</option>
+			<option value="PORT" >Portuguese (PORT)</option>
+			<option value="PSMS" >Prof Stdies/Middle-Grd Science (PSMS)</option>
+			<option value="PSMM" >Prof Stud Middle-School Math (PSMM)</option>
+			<option value="PSLD" >Prof Studies Landscape Design (PSLD)</option>
+			<option value="PSLM" >Prof Studies Law Firm Mgmt (PSLM)</option>
+			<option value="PSMB" >Prof Studies in Molecular Biol (PSMB)</option>
+			<option value="PSPH" >Prof Studies-Physics Education (PSPH)</option>
+			<option value="PSPR" >Prof Studies-Public Relations (PSPR)</option>
+			<option value="PSPB" >Prof Studies-Publishing (PSPB)</option>
+			<option value="PSML" >ProfStudMulti-SectorLeadership (PSML)</option>
+			<option value="PSHC" >ProfStudies HlthCareCorpCompli (PSHC)</option>
+			<option value="PSUS" >ProfStudiesUrbanSustainability (PSUS)</option>
+			<option value="PSYD" >Professional Psychology (PSYD)</option>
+			<option value="PCHI" >Psychiatry &amp; Behavioral Sci (PCHI)</option>
+			<option value="PSYC" >Psychology (PSYC)</option>
+			<option value="PAD" >Public Administration (PAD)</option>
+			<option value="PUBH" >Public Health (PUBH)</option>
+			<option value="PPOL" >Public Policy (PPOL)</option>
+			<option value="RAD" >Radiology (RAD)</option>
+			<option value="RAFF" >Regulatory Affairs (RAFF)</option>
+			<option value="REL" >Religion (REL)</option>
+			<option value="RESV" >Reservation (RESV)</option>
+			<option value="ROM" >Romance Literatures (ROM)</option>
+			<option value="PHHS" >Sch Public Hlth -Hlth Services (PHHS)</option>
+			<option value="SEAS" >School of Eng &amp; Applied Sci (SEAS)</option>
+			<option value="SMPA" >School of Media&amp;Public Affairs (SMPA)</option>
+			<option value="SMHS" >School of Medicine &amp; Hlth Sci (SMHS)</option>
+			<option value="SBPM" >School-Business &amp; Public Mgt (SBPM)</option>
+			<option value="PSSL" >Security &amp; Safety Leadership (PSSL)</option>
+			<option value="SLAV" >Slavic Languages &amp; Lit (SLAV)</option>
+			<option value="SOC" >Sociology (SOC)</option>
+			<option value="SONO" >Sonography (SONO)</option>
+			<option value="SPAN" >Spanish (SPAN)</option>
+			<option value="SPED" >Special Education (SPED)</option>
+			<option value="SPHR" >Speech and Hearing Science (SPHR)</option>
+			<option value="STAT" >Statistics (STAT)</option>
+			<option value="SMPP" >Strategic Mgt &amp; Public Policy (SMPP)</option>
+			<option value="UNSS" >Summer Scholars Program (UNSS)</option>
+			<option value="SURG" >Surgery (SURG)</option>
+			<option value="TRED" >Teacher Education (TRED)</option>
+			<option value="TRDA" >Theatre and Dance (TRDA)</option>
+			<option value="TSTD" >Tourism Studies (TSTD)</option>
+			<option value="TURK" >Turkish (TURK)</option>
+			<option value="UNIV" >University (UNIV)</option>
+			<option value="UW" >University Writing (UW)</option>
+			<option value="UROL" >Urology (UROL)</option>
+			<option value="VIET" >Vietnamese (VIET)</option>
+			<option value="WLP" >Women and Leadership Program (WLP)</option>
+			<option value="WSTU" >Women's Studies (WSTU)</option>
+			<option value="YDSH" >Yiddish (YDSH)</option>
+		</select><br><br>
+		<span class = "inputLabel">Course Attribute</span><br>
+		<select tabindex="3" ng-model="courseAttribute" ng-keypress = "pressForCourses($event)" class="form-control" style="font-size:40;height:100px;margin-top: 1%">
+			<option value="">Course Attribute</option>
+			<option value="BCOM">BCOM: GWSB-Communications Elective</option>
+			<option value="BCPD">BCPD: GWSB-Cult.&amp;Political Diversity</option>
+			<option value="BFCO">BFCO: GWSB-Foreign Cultures Option</option>
+			<option value="BFLC">BFLC: GWSB-Foreign Lang. or Culture</option>
+			<option value="BHUM">BHUM: GWSB-Humanities Elective</option>
+			<option value="BINT">BINT: GWSB-International Bus. Elec.</option>
+			<option value="BMRE">BMRE: GWSB-Moral Reasoning Elective</option>
+			<option value="CAA">CAA: CCAS: Arts</option>
+			<option value="CAF1">CAF1: CCAS-AMST-Cultural Politics</option>
+			<option value="CAF2">CAF2: CCAS-AMST-Global Connections</option>
+			<option value="CAF3">CAF3: CCAS-AMST-Space, Place,Society</option>
+			<option value="CAF4">CAF4: CCAS-AMST-Power, Iden, Diff</option>
+			<option value="CAF5">CAF5: CCAS-AMST-Built Environment</option>
+			<option value="CAF6">CAF6: CCAS-AMST-Cultural Analysis</option>
+			<option value="CAH">CAH: GenEd:Crit Analysis Humanities</option>
+			<option value="CAMS">CAMS: GenEd:Quantitative Reasoning</option>
+			<option value="CASS">CASS: GenEd:Crit Analysis Social Sci</option>
+			<option value="CCCP">CCCP: CCAS-GCR: CPA</option>
+			<option value="CCFC">CCFC: CCAS - GCR: Foreign Cultures</option>
+			<option value="CCFL">CCFL: CCAS - GCR: Foreign Languages</option>
+			<option value="CCH">CCH: CCAS - GCR: Humanities</option>
+			<option value="CCNS">CCNS: CCAS - GCR: Natural Sciences</option>
+			<option value="CCOM">CCOM: CCAS: Oral Communication</option>
+			<option value="CCPR">CCPR: CCAS - Professional</option>
+			<option value="CCQL">CCQL: CCAS - GCR: Q &amp; L</option>
+			<option value="CCSB">CCSB: CCAS - GCR:Social &amp; Behavioral</option>
+			<option value="CDEL">CDEL: CCAS - Dance Electives</option>
+			<option value="CDPP">CDPP: CCAS - Dramatic Lit.-Perf&amp;Prod</option>
+			<option value="CDRA">CDRA: CCAS - Dramatic Lit - Drama</option>
+			<option value="CEDE">CEDE: SEAS-CE Design Elective</option>
+			<option value="CETE">CETE: SEAS-CE Technical Elective</option>
+			<option value="CGCC">CGCC: CCAS:GlobalCrossCultural</option>
+			<option value="CGHG">CGHG: CCAS-GEOG - Human Geography</option>
+			<option value="CGPG">CGPG: CCAS-GEOG - Physical Geography</option>
+			<option value="CGRG">CGRG: CCAS-GEOG - Regional Geography</option>
+			<option value="CHIE">CHIE: CCAS - History European</option>
+			<option value="CHIU">CHIU: CCAS - History US</option>
+			<option value="CHIW">CHIW: CCAS - History World</option>
+			<option value="CHPS">CHPS: CCAS - History Pre-1750</option>
+			<option value="CLCE">CLCE: CCAS:Local/Civil Engage</option>
+			<option value="CSCI">CSCI: Gen Ed: Nat or Phys Sci</option>
+			<option value="CT01">CT01: TSPPPA - Budget&amp;Finance</option>
+			<option value="CT02">CT02: TSPPPA - Education Policy</option>
+			<option value="CT03">CT03: TSPPPA - Environmental Policy</option>
+			<option value="CT04">CT04: TSPPPA - Fed Pol, Polit &amp; Mgmt</option>
+			<option value="CT05">CT05: TSPPPA - Health Policy</option>
+			<option value="CT06">CT06: TSPPPA - Homeland Security</option>
+			<option value="CT07">CT07: TSPPPA - International Dev Mgt</option>
+			<option value="CT08">CT08: TSPPPA - International Dev Pol</option>
+			<option value="CT09">CT09: TSPPPA - State&amp;Local Govs</option>
+			<option value="CT10">CT10: TSPPPA - National Security Pol</option>
+			<option value="CT11">CT11: TSPPPA - Nonprofit Mgmt</option>
+			<option value="CT12">CT12: TSPPPA - Policy Analys &amp; Eval</option>
+			<option value="CT13">CT13: TSPPPA - Program Eval &amp; Analys</option>
+			<option value="CT14">CT14: TSPPPA - Pub-Pri Pol Mgmt</option>
+			<option value="CT15">CT15: TSPPPA - Regulatory Policy</option>
+			<option value="CT16">CT16: TSPPPA - Social Policy</option>
+			<option value="CT17">CT17: TSPPPA - Urban Policy</option>
+			<option value="CTDP">CTDP: CCAS - Theatre-Dram.Lit &amp;Play</option>
+			<option value="CTDT">CTDT: CCAS - Theatre-Design &amp; Tech</option>
+			<option value="CTEL">CTEL: CCAS - Theatre Electives</option>
+			<option value="CTRN">CTRN: CCAS-GPAC Transfer Courses</option>
+			<option value="DGW1">DGW1: Degree Audit Attribute</option>
+			<option value="DNCE">DNCE: Dance</option>
+			<option value="EAED">EAED: ESIA-Asian Studies-Econ &amp; Devl</option>
+			<option value="EAGP">EAGP: ESIA-Anth/Geog/PubH (Pre2010)</option>
+			<option value="EAHC">EAHC: ESIA-Asian Studies-Hist &amp; Cult</option>
+			<option value="EAPG">EAPG: ESIA-Asian Studies-Psc/Geog</option>
+			<option value="EFCA">EFCA: ESIA-CPESS Conc (2010)</option>
+			<option value="EFCB">EFCB: ESIA-ConflRes Conc (2010)</option>
+			<option value="EFCC">EFCC: ESIA-ContempCS Conc (2010)</option>
+			<option value="EFCD">EFCD: ESIA-Global PH Conc (2010)</option>
+			<option value="EFCE">EFCE: ESIA-Intl Dev Conc (2010)</option>
+			<option value="EFCF">EFCF: ESIA-Intl Econ Conc (2010)</option>
+			<option value="EFCG">EFCG: ESIA-IntlEnvSt Conc (2010)</option>
+			<option value="EFCH">EFCH: ESIA-Intl Pol Conc (2010)</option>
+			<option value="EFCI">EFCI: ESIA-Sec Pol Conc (2010)</option>
+			<option value="EFG1">EFG1: ESIA-CPESS Conc (Pre 2010)</option>
+			<option value="EFG2">EFG2: ESIA-Confl/Sec Conc (Pre 2010)</option>
+			<option value="EFG3">EFG3: ESIA-ContempCS Conc (Pre 2010)</option>
+			<option value="EFG4">EFG4: ESIA-Global PH Conc (Pre 2010)</option>
+			<option value="EFG5">EFG5: ESIA-Intl Dev Conc (Pre 2010)</option>
+			<option value="EFG6">EFG6: ESIA-Intl Econ Conc (Pre 2010)</option>
+			<option value="EFG7">EFG7: ESIA-IntEnvRes Conc (Pre 2010)</option>
+			<option value="EFG8">EFG8: ESIA-Intl Pol Conc (Pre 2010)</option>
+			<option value="EGC1">EGC1: ESIA-Africa GCR (Pre2010)</option>
+			<option value="EGC2">EGC2: ESIA-Asia GCR (Pre2010)</option>
+			<option value="EGC3">EGC3: ESIA-Europe GCR (Pre2010)</option>
+			<option value="EGC4">EGC4: ESIA-Americas GCR (Pre2010)</option>
+			<option value="EGC5">EGC5: ESIA-MidEast GCR (Pre2010)</option>
+			<option value="EHNU">EHNU: ESIA-HistofIR-NonUS (Pre2010)</option>
+			<option value="EHUS">EHUS: ESIA-Hist of IR US (Pre2010)</option>
+			<option value="EMAT">EMAT: ESIA-Math(2010)</option>
+			<option value="ERCA">ERCA: ESIA-Africa Conc (2010)</option>
+			<option value="ERCB">ERCB: ESIA-Asia Conc (2010)</option>
+			<option value="ERCC">ERCC: ESIA-Euro Conc (2010)</option>
+			<option value="ERCD">ERCD: ESIA-LatAm Conc (2010)</option>
+			<option value="ERCE">ERCE: ESIA-MidEast Conc (2010)</option>
+			<option value="ERFA">ERFA: ESIA-RegFound Africa (2010)</option>
+			<option value="ERFB">ERFB: ESIA-RegFound LatAm (2010)</option>
+			<option value="ERFC">ERFC: ESIA-RegFound Asia (2010)</option>
+			<option value="ERFD">ERFD: ESIA-RegFound Euro (2010)</option>
+			<option value="ERFE">ERFE: ESIA-RegFound MdEast (2010)</option>
+			<option value="ERG1">ERG1: ESIA-Africa Conc (Pre 2010)</option>
+			<option value="ERG2">ERG2: ESIA-Asia Conc (Pre 2010)</option>
+			<option value="ERG3">ERG3: ESIA-Euro Conc (Pre 2010)</option>
+			<option value="ERG4">ERG4: ESIA-LatAm Conc (Pre 2010)</option>
+			<option value="ERG5">ERG5: ESIA-MidEast Conc (Pre 2010)</option>
+			<option value="ESAG">ESAG: ESIA-Anth/Geog (2010)</option>
+			<option value="ESCA">ESCA: ESIA-Creative Arts Courses</option>
+			<option value="ESCI">ESCI: ESIA-Science(2010)</option>
+			<option value="ESHA">ESHA: ESIA-Historical Analysis</option>
+			<option value="ESHC">ESHC: ESIA-Humanities Courses</option>
+			<option value="ESIP">ESIP: ESIA-International Politics</option>
+			<option value="ESMS">ESMS: ESIA-Math / Science(Pre-2010)</option>
+			<option value="ESRM">ESRM: ESIA-Research Methods</option>
+			<option value="HAAH">HAAH: HONR - Arts &amp; Hum. HONR 2053</option>
+			<option value="HAH2">HAH2: HONR - Arts &amp; Hum. HONR 2054</option>
+			<option value="HSAS">HSAS: HONR-Self &amp; Society HONR 2047</option>
+			<option value="HSRD">HSRD: HONR-Sci Reasoning &amp; Discovery</option>
+			<option value="HSS2">HSS2: HONR-Self &amp; Society HONR 2048</option>
+			<option value="JDSR">JDSR: JD-LAW Skills Requirement</option>
+			<option value="JDWR">JDWR: JD-LAW Writing Requirement</option>
+			<option value="MPGC">MPGC: MBA Professional - Global</option>
+			<option value="MPSC">MPSC: MBA Prof - Sustainability</option>
+			<option value="MXCL">MXCL: Not Counted Masters Program</option>
+			<option value="NCAP">NCAP: Not Counted</option>
+			<option value="PCPA">PCPA: SPHHS-Creative/Performing Arts</option>
+			<option value="PHHC">PHHC: SPHHS-Humanities Courses</option>
+			<option value="SHUM">SHUM: Inactive Attribute Code</option>
+			<option value="SMTA">SMTA: Sust Minor: Green Leaf Track A</option>
+			<option value="SMTB">SMTB: Sust Minor: Green Leaf Track B</option>
+			<option value="SMTC">SMTC: Sust Minor: Green Leaf Track C</option>
+			<option value="SSSE">SSSE: Inactive Attribute Code</option>
+			<option value="SUST">SUST: Sustainability Courses</option>
+			<option value="SVCL">SVCL: Service Learning Course</option>
+			<option value="XDOC">XDOC: Not Counted Doctoral Program</option>
+		</select><br><br>
+		<div style = "float:right">
+			<span style="text-align: left" class = "inputLabel">Instructor</span><br><br>
+			<input tabindex="5" style = "height:100px;font-size: 40" class = "form-control" type="text" placeholder="Instructor" ng-model="instructor" ng-keypress = "pressForCourses($event)"></input>
+		</div>
+		<div style = "float:left">
+			<span class = "inputLabel">CRN</span><br><br>
+			<input tabindex="4" class = "form-control" style = "width:330px;height:100px;font-size: 40;margin-bottom: 12%" type="text" placeholder="CRN" ng-model="crn" ng-keypress = "pressForCourses($event)"></input>
+		</div>
+		<span style="float:left;margin-bottom: 2%" class = "inputLabel">Course Number (single or range)</span> 
+		<div style = "float:right;margin-right: 40%">
+			<input tabindex="7" style = "width:200px;height:100px;font-size: 40" class = "form-control" type="text" placeholder="End" ng-model="courseNumberTwo" ng-keypress = "pressForCourses($event)"></input>
+		</div>
+		<div style="margin-top:-20;padding:0 5% 0 0;float:right;font-size: 90">-</div>
+		<div style = "float:left;width:50px">
+			<input tabindex="6" class = "form-control" style = "width:200px;height:100px;font-size: 40" type="text" placeholder="Start" ng-model="courseNumberOne" ng-keypress = "pressForCourses($event)"></input>
+		</div>
+		<span style="float:left;margin:3% 20% 2% 0" class = "inputLabel">Course Time</span> 
+		<div style = "float:right;margin-right: 40%">
+			<input tabindex="7" style = "width:200px;height:100px;font-size: 40" class = "form-control" type="text" placeholder="End" ng-model="endTime" ng-keypress = "pressForCourses($event)"></input>
+		</div>
+		<div style="margin-top:-20;padding:0 5% 0 0;float:right;font-size: 90">-</div>
+		<div style = "float:left;width:50px">
+			<input tabindex="6" class = "form-control" style = "width:200px;height:100px;font-size: 40" type="text" placeholder="Start" ng-model="startTime" ng-keypress = "pressForCourses($event)"></input>
+		</div>
+		<div style="clear: both"></div>
+		<span style="float:left;margin-top: 4%" class = "inputLabel">Days</span>
+		<div style="clear: both"></div>
+		<div>
+			<div ng-model="sunday" id="sunday" class="dayButton" ng-click="dayButton('sunday');">S</div>
+			<div ng-model="monday" id="monday" class="dayButton" ng-click="dayButton('monday')">M</div>
+			<div ng-model="tuesday" id="tuesday" class="dayButton" ng-click="dayButton('tuesday')">T</div>
+			<div ng-model="wednesday" id="wednesday" class="dayButton" ng-click="dayButton('wednesday')">W</div>
+			<div ng-model="thursday" id="thursday" class="dayButton" ng-click="dayButton('thursday')">Th</div>
+			<div ng-model="friday" id="friday" class="dayButton" ng-click="dayButton('friday')">F</div>
+			<div ng-model="saturday" id="saturday" style="margin-right:0" class="dayButton" ng-click="dayButton('saturday')">Sa</div>
+		</div>
+		<span style="clear:both;float:left;margin-top: 4%;margin-bottom: 3%" class = "inputLabel">Options</span><br>
+		<div id="WIDButton" ng-model="wid" ng-click="WIDButton()">WID</div>
+		<div ng-model="deanSeminar" id="DeansButton" ng-click="DeansButton()">Dean's Seminar</div>
+	</div>
+	<!--
+<div>
+		<a name = "about">
+		<img style = "width:100%" src = "/img/nap.png"></img>
+		<div style="font-weight: normal;font-size:180;text-align:center;margin-top:-700;color:white;font-family: 'Sail';font-style: normal">Nap more</div>
+		<div style="font-weight: bold;font-size:75;text-align:center;margin-top:-50;color:white;font-family: 'Avenir Black': normal">Search less</div>
+	</div>
+-->
+</body>
+</html>

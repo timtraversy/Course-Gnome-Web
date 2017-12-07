@@ -1,0 +1,357 @@
+.logo {
+  width: 200px;
+  margin-left:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@font-face {
+  font-family: "DIN Condensed Bold";
+  src: local("DIN Condensed Bold"), url("https://github.com/justrajdeep/fonts/blob/master/DIN%20Condensed%20Bold.ttf?raw=true");
+}
+
+h1 {
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-right: 10px;
+  font-family: "DIN Condensed Bold";
+  font-size: 50px;
+  line-height: 47px;
+  color: white;
+}
+
+#parent{
+  width: 100%;
+  height: 650px;
+  white-space:nowrap;
+}
+
+.firstBlock {
+  vertical-align: top;
+  display: inline-block;
+  background-color: 15439F;
+  border-radius: 15px;
+  width: 300px;
+  height: 650px;
+}
+
+.firstBlock p {
+  color: white;
+  font-family: Avenir Medium;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+
+.form{
+  margin:-30px 20px 0px 20px;
+  width: 425;
+  height: 500px;
+}
+
+.label{
+  color: white;
+  padding-left: 5px;
+  font-family: Avenir Medium;
+  font-size: 12px;
+}
+
+.field {
+  height:30px;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.field2 {
+  height:30px;
+  width:102px;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.field3 {
+  height:30px;
+  width:120px;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.dropdown {
+  height:50px;
+  margin-top: 15px;
+  font-size: 90px;
+  width: 260px;
+}
+
+#parent2{
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.day{
+  font-family: Avenir Medium;
+  text-align: center;
+  padding-top: 10px;
+  padding-right: 12px;
+  font-size: 18px;
+  color: white;
+  width: 20px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.refresh{
+  background-color: 44C678;
+  color: white;
+  text-align: center;
+  font-family: Avenir;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: 19px;
+  margin-top: 10px;
+  width: 260px;
+}
+
+.secondBlock {
+  vertical-align: top;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  background-color: 50B5F9;
+  border-radius: 15px;
+  width: 450px;
+  height: 650px;
+}
+
+.secondBlock img{
+  vertical-align: top;
+  width: 15px;
+  margin-left: 5px;
+}
+
+#results {
+  margin:-30px 20px 0px 20px;
+  width: 425px;
+  height: 570px;
+  overflow:auto;
+  white-space:normal;
+}
+
+#noResults {
+  font-family: Avenir Medium;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+}
+
+.result {
+  background-color: white;
+  margin-top: -10px;
+  width: 405px;
+}
+
+.title {
+	background-color: #f2f2f2;
+}
+
+.result h1{
+  padding-top: 13px;
+  padding-bottom: 0px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-family: "Avenir Black";
+  font-size: 22px;
+  color: 15439F;
+  letter-spacing: 0.5px;
+  line-height: 25px
+}
+.result p {
+  font-family: "Avenir Medium";
+  color: 15439F;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-size: 14px;
+  line-height: 10px;
+  letter-spacing: 0.2px;
+}
+.result span {
+  font-family: "Avenir Black";
+  letter-spacing: 0.2px;
+  font-size: 14px;
+}
+
+#statusBar {
+  background-color: blue;
+  height: 8px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: -10px;
+}
+
+.openDates {
+  float:left;
+  font-family: "Avenir Medium";
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  color: 15439F;
+  margin-left: 15px;
+  margin-top: -3px;
+}
+
+.dataTwo {
+  letter-spacing: 0.2px;
+  display:inline-block;
+  vertical-align: top;
+  margin-left: 5px;
+  padding-bottom: 10px;
+  margin-top: -3px;
+  font-family: "Avenir Medium";
+  font-size: 14px;
+  color: 15439F;
+}
+
+#line {
+  display: inline-block;
+  border:solid thin;
+  margin-left: 5px;
+  border-color: 15439F;
+  height: 31px;
+}
+
+.noShow {
+  display: none;
+}
+
+#showMore {
+  margin-left: 36%;
+  text-align: center;
+  color: white;
+  background: none;
+  font-family: Avenir Medium;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.moreInfo {
+  padding: 15px;
+  font-family: "Avenir";
+  font-size: 13px;
+  color: 15439F;
+  line-height: 20px;
+  text-align: left;
+  background-color:B9FFFF;
+}
+
+.moreInfo span {
+  font-family: "Avenir Medium";
+  letter-spacing: 0.2px;
+  font-size: 13px;
+}
+
+#addButton {
+  width: 25px;
+  float: right;
+  margin-right: 10px;
+  margin-top: -5px;
+}
+
+.thirdBlock {
+  vertical-align: top;
+  display: inline-block;
+  background-color: 3774EA;
+  border-radius: 15px;
+  width: 600px;
+  height: 650px;
+  margin-right: 10px;
+}
+
+#clearAll {
+  margin-top: 15px;
+  margin-right: 20px;
+  float:right;
+  text-align: center;
+  color: 15439F;
+  background: white;
+  font-family: Avenir Medium;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.test {
+  text-align:center;
+  position:relative;
+  width: 90px;
+  height: 50px;
+  background: white;
+  border-radius: 15px;
+  color:15439F;
+  padding-top: 10px;
+  font-family: Avenir Black;
+  font-size: 13px;
+}
+
+#calendar {
+  margin: 10px 20px 0px 20px;
+  width: 560;
+  height: 540px;
+  overflow: auto;
+  width: 90%;
+}
+
+.dayColumn {
+  padding-left: 9px;
+  display: inline-block;
+  vertical-align: top;
+  text-align:center;
+  height:900px;
+  width:100px;
+  font-family: Avenir Heavy;
+  color: white;
+  border: white;
+  border-left: 1px solid;
+}
+
+.classBlock {
+  background-blend-mode: difference;
+  border: 1px solid;
+  border-color: 3774EA;
+  color: 15439F;
+  font-family: Avenir Medium;
+  font-size: 14px;
+  background: white;
+  border-radius: 7px;
+  position: absolute;
+  width: 96px;
+  white-space:normal;
+}
+
+.dayListWrapper {
+  margin-top: 65px;
+  padding-left: 60;
+  font-family: Avenir Heavy;
+  font-size: 15px;
+  word-spacing: 50px;
+  color: white;
+  height:20px;
+  overflow: hidden;
+}
+
+.dayList {
+  padding-bottom: 20px;
+  overflow: auto;
+}
+
+#dayInList {
+  margin-right: 50;
+  display: inline-block;
+}
+
+.hours {
+  font-family: Avenir Heavy;
+  font-size: 17px;
+  color: white;
+  line-height: 40px;
+  float:left;
+  margin-left: 20px;
+  padding-right: 15px;
+}

@@ -1,0 +1,615 @@
+<html ng-app = "gnomeApp">
+<head>
+	<title>Course Gnome</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+
+	
+	<meta name="viewport" content = "width=device-width, initial-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="css/auto-complete.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.timepicker.css" />
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#e22b23">
+	<meta name="theme-color" content="#ff0000">
+	
+</head>
+<body id = "body" ng-app = "gnomeApp" ng-controller = "gnomeController">
+	<div class = "navbar">
+		<div class = "logo"><a href="/"><img id = "logoSize" src="images/Logo%20White.png"/></a></div>
+		<div class = "season">SPRING 2018</div>
+		<div id = "hiUser" class = "userButtons"></div><br id = "logBR"><div onclick = "logOut()" id = "logOut" class = "logOut">log out</div>
+		<div onlogin = "checkLoginState();" id = "loginButtonMobile" class="fb-login-button" data-width="200" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-scope="public_profile, email"></div>
+		<div onlogin = "checkLoginState();" id = "loginButton" class="fb-login-button" data-width="200" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-scope="public_profile, email"></div>
+	</div>
+<!-- 	<div style= "height:100%"><img height="100%" src = "images/smallBackground.jpg"></img></div> -->
+	<div class = "workarea">
+		<div class = "innerBoxOne" id = "searchBox">
+				<div class = "searchTitle">Search <span ng-show = "offerings.length" id = "resultCount"> ({{ offerings.length }})</span></div>
+				<div onclick="openModal()" id = "moreFilters">More Filters</div>
+				<div id = "modalWrap">
+				<div id="modal-content">
+					<div class = "inputDiv" style = "margin-right:5%;width:70%">
+						<div id = "label">Course name</div><br>
+						<input onblur="checkEmpty(id)" onchange="createBlockMoreFilters('COURSE NAME: ' + value); callGetCourses()" class = "input" ng-model="courseName" id="courseName" autofocus type="text" style = "width:100%">
+					</div>			
+					<div class = "inputDiv" style = "width:25%">
+						<div id = "label">CRN</div><br>
+						<input onblur="checkEmpty(id)" onchange="createBlockMoreFilters('CRN: ' + value + ' (2)'); callGetCourses()" class = "input" ng-model="CRN" id="CRN" type="text" style = "width:100%">
+					</div>
+					<div class = "inputDiv" style = "width: 5em">
+						<div id = "label">Course #</div><br>
+						<input onblur="checkEmpty(id)" onchange="createBlockMoreFilters('COURSE NUMBER: ' + value + ' (2)'); callGetCourses()" class = "input" ng-model="courseNumber1" id="courseNumber1" type="text" style = "width: 100%; margin-right: 10">
+					</div>
+					<div class = "inputDiv" style = "width: 6%;text-align: center">
+						<div id = "label"></div><br>
+						<div id = "label" style="margin-top:6;margin-right: 7%;margin-left: 20%">-</div><br>
+					</div>	
+
+					<div class = "inputDiv" style = "width: 30%; margin-right:5%">
+						<!-- <div id = "label" style="font-size: 13; position: absolute; top: 22; right:20">(single or range)</div> --><br>
+						<input class = "inputLast" ng-model="courseNumber2" onchange = "callGetCourses()" id="courseNumber2" type="text" style = "width: 100%">
+					</div>
+					<div class = "inputDiv" style = "width: 27%">
+						<div id = "label">Credit</div><br>
+						<input onblur="checkEmpty(id)" class = "inputLast" ng-model="credit" id="credit" type="text" style = "width: 100%">
+					</div>
+					<div class = "inputDiv" style = "width: 100%">
+						<div id = "label">Department &#8595</div><br>
+						<input onblur="checkEmpty(id)" placeholder="Click or start typing"; class = "input" id="department" type="text" style = "width: 100%">
+					</div>
+					<div class = "inputDiv" style = "width: 100%">
+						<div id = "label">Instructor &#8595</div><br>
+						<input onblur="checkEmpty(id)" placeholder="Click or start typing"; class = "inputLast" ng-model="instructor" id="instructor" type="text" style = "width: 100%">
+					</div>
+					<div class = "inputDiv" style = "width: 100%">
+						<div id = "label">Course Attribute &#8595</div><br>
+						<input onblur="checkEmpty(id)" placeholder="Click or start typing"; class = "input" ng-model="courseAttribute" id="courseAttribute" type="text" style = "width: 100%">
+					</div>
+					
+				</div>
+				<div id="modal-content2">
+					<div style = "float:left; margin-right: 30;">
+						<div id = "label">Status</div><br>
+						<button onmouseover="turnOn(id)" onclick = "createBlockMoreFilters('STATUS: Open (2)'); clickButton(id)" name = "buttonOne" class = "buttonOne" ng-model="open" id="open" style = "color:white">Open</button><br>
+						<button onmouseover="turnOn(id)" onclick = "createBlockMoreFilters('STATUS: Closed (2)'); clickButton(id)" name = "buttonOne" class = "buttonOne" ng-model="closed" id="closed">Closed</button><br>
+						<button onmouseover="turnOn(id)" onclick = "createBlockMoreFilters('STATUS: Waitlist (2)'); clickButton(id)" name = "buttonOne" class = "buttonOne" ng-model="waitlist" id="waitlist">Waitlist</button><br>
+					</div>
+					<div style = "float:left; margin-right: 30;">
+						<div id = "label">Special</div><br>
+						<button onmouseover="turnOn(id)" onclick = "clickButton(id)" name = "buttonTwo" class = "buttonTwo" ng-model="wid" id="wid">WID</button><br>
+						<button onmouseover="turnOn(id)" onclick = "clickButton(id)" name = "buttonTwo" class = "buttonTwo" ng-model="deans" id="deans">Dean's Seminar</button><br>					
+					</div>
+					<div style = "float:left">
+						<div id = "label">PerfectFit&#8482</div><br>
+						<label class="switch">
+							<input type="checkbox">
+							<span class="slider round"></span>
+						</label><br>
+						<div id = "smallLabel">Only show courses that<br>fit around your current<br>schedule</div><br>
+					</div>
+				</div>
+				<div id="modal-content3">
+					<div style = "float:left; font-size: 14">
+						<div id = "label">Starts after</div><br>
+						<input onchange="callGetCourses()" id="startTime" type="text" class="input" ng-model="startTime" autocomplete="off" style="width:100; margin-right: 30;"><br>
+					</div>	
+					<div style = "float:left; font-size: 14">
+						<div id = "label">Ends before</div><br>
+						<input onchange="callGetCourses()" id="endTime" type="text" class="input" ng-model="endTime" autocomplete="off" style="width:100"><br>
+					</div>	
+					<div style = "float:left; margin-top: -2">
+						<div id = "label">Days</div><br>
+						<button onmouseover="turnOn(id)" onclick = "clickButton('m')" name = "dayButton" class = "dayButton" ng-model="m" id="m">M</button>
+						<button onmouseover="turnOn(id)" onclick = "clickButton('t')" name = "dayButton" class = "dayButton" ng-model="t" id="t">T</button>
+						<button onmouseover="turnOn(id)" onclick = "clickButton('w')" name = "dayButton" class = "dayButton" ng-model="w" id="w">W</button>
+						<button onmouseover="turnOn(id)" onclick = "clickButton('th')" name = "dayButton" class = "dayButton" ng-model="th" id="th">Th</button>
+						<button onmouseover="turnOn(id)" onclick = "clickButton('f')" name = "dayButton" class = "dayButtonLast" ng-model="f" id="f">F</button>
+					</div>
+				</div>
+				<div id="modal-content4">
+					<div style = "float:left">
+						<button onclick = "closeModal();" ng-click = "getCourses()" class = "endButton1" ng-model="ok" id="ok" style ="margin-right: 15">Ok &#10003</button><br>
+					</div>
+					<div style = "float:right">
+						<button onclick="clearAll()" class = "endButton2" ng-model="clear" id="clear">Clear All</button><br>
+					</div>
+				</div>
+				</div>
+				<div id="backdrop"></div>
+				<input ng-model="autoCompleteText" id="hero-demo" autofocus type="text" name="q" placeholder="Department, teacher, status, etc...">
+				<div style= "display: inline-block; float: left" id = "blocksHere">
+				</div>
+				<img style="display:visible"id = "startGnome" src = "images/StartGnome.png">
+	        	<div id = "results">
+	        		<div ng-repeat="course in courses | limitTo: courseLimit">
+		        		<div class = "result" style= "color: {{ newColor($index, course.cid) }}; border-color: {{ newColor($index, course.cid) }}">
+							<div class = "title" id = 'title {{ $index }}'>
+				        		<span style = "cursor: pointer" ng-click="createBlock(course.subjectAcronym)">{{ course.subjectAcronym }}</span> {{ course.subjectNumber }} - {{ course.courseName }} 
+			        		</div>
+			        		<div ng-mouseleave = "deselectOffering(offering.oid, 'offeringBlock')" ng-mouseenter = "localOffering(course.cid, offering.oid, $parent.$index, 1)" ng-repeat="offering in getOfferings(course)" ng-class = "getOfferingClass(offering.status)" ng-click="localOffering(course.cid,offering.oid, $parent.$index, 0)">
+				        		<div class = "test">
+					        		<div class = "sectionNumber">{{ offering.sectionNumber }}</div>
+					        		<!--
+<div class= "instructor">
+						        		<div ng-repeat = "instructor in getInstructors(offering)">
+						        			<span style = "cursor: pointer" ng-click="createBlock('INSTRUCTOR: ' + instructor.name + ' (2)')">{{ instructor.name }}</span>
+						        		</div>
+					        		</div>
+-->
+					        		<div class= "classTime">
+						        		<div ng-repeat = "offeringMeets in getOfferingMeets(offering)">
+							        		<div ng-show = "{{ offeringMeets.m }}" style = "background-color:{{ newColorSquare(course.cid, $parent.$parent.$index, offering.status) }}" class = "square"></div>
+							        		<div ng-hide = "{{ offeringMeets.m }}" class = "square"></div>
+											<div ng-show = "{{ offeringMeets.t }}" style = "background-color:{{ newColorSquare(course.cid, $parent.$parent.$index, offering.status) }}" class = "square"></div>
+											<div ng-hide = "{{ offeringMeets.t }}" class = "square"></div>
+											<div ng-show = "{{ offeringMeets.w }}" style = "background-color:{{ newColorSquare(course.cid, $parent.$parent.$index, offering.status) }}" class = "square"></div>
+											<div ng-hide = "{{ offeringMeets.w }}" class = "square"></div>
+											<div ng-show = "{{ offeringMeets.r }}" style = "background-color:{{ newColorSquare(course.cid, $parent.$parent.$index, offering.status) }}" class = "square"></div>						      
+											<div ng-hide = "{{ offeringMeets.r }}" class = "square"></div>  		
+											<div ng-show = "{{ offeringMeets.f }}" style = "background-color:{{ newColorSquare(course.cid, $parent.$parent.$index, offering.status) }}" class = "square"></div>
+											<div ng-hide = "{{ offeringMeets.f }}" class = "square"></div>
+											<span style = "margin-left:4%">{{ convertTime(offeringMeets.startTime) }} - {{ convertTime(offeringMeets.endTime) }}</span>
+											<br>
+						        		</div>
+					        		</div>
+					        		<div class = "crnSpan">{{ offering.crn }}
+						        		<div ng-show = "offering.status == 'Waitlist'" style = "font-size:12;float:right;margin-right:1%">Waitlist</div>
+										<div ng-show = "offering.status == 'Closed'" style = "font-size:12;float:right">Closed</div>
+										<div ng-click = "openBox($parent.$index, $index, $event); event.cancelBubble=true;" style = "background-color:{{ newColorSquare(course.cid, $parent.$index, offering.status) }}" class = "showMore">SHOW MORE</div>
+									</div>
+									<div ng-show="checkMark(offering.oid)" style = "display:block" class = "picked">&#10003;</div>
+									<div class= "instructor">
+						        		<div ng-repeat = "instructor in getInstructors(offering)">
+						        			<span style = "cursor: pointer" ng-click="createBlock('INSTRUCTOR: ' + instructor.name + ' (2)')">{{ instructor.name }}</span>
+						        		</div>
+					        		</div>
+					        							        		<!--
+<div class = "statusMarkers">
+						        		<div ng-show = "offering.status == 'Closed'" class = "wait">C</div>
+										<div ng-show = "offering.status == 'Waitlist'" class = "wait">W</div>
+										<div id = "check{{ offering.oid }}" style = "display:none" class = "picked">&#10003;</div>
+					        		</div>					        		
+					        		<div ng-click = "openBox($parent.$index, $index)" style = "background-color:{{ newColorSquare($parent.$index, offering.status) }}" class = "showMore">SHOW MORE</div>
+-->
+				        		</div>
+				        		<div id = "box{{ $parent.$index }}{{ $index }}" style = "background-color: {{ newColorShowMore($parent.$index) }}; color: {{ newColor($parent.index) }}" class = "showMoreBox">
+					        		<div class = "showMoreLine" ng-show = "offering.comment"><b>Comment: </b><span ng-bind-html="decodeHTML(offering.comment)"></span></div>
+					        		<div class = "showMoreLeft">
+						        		<div ng-show = "getOfferingMeets(offering).length" class = "showMoreLine"><b>Location:</b> 
+							        	<span ng-repeat = "offeringMeets in getOfferingMeets(offering) | limitTo: 1">
+							        		{{ offeringMeets.location }}</span><span ng-repeat = "offeringMeets in getOfferingMeets(offering) | limitTo: (1-getOfferingMeets(offering).length)">, {{ offeringMeets.location }}</span>
+						        		</div>
+						        		<div ng-show = "getCourseAttributes(offering).length" class = "showMoreLine"><b>Attributes:</b> 
+							        	<span ng-repeat = "courseAttribute in getCourseAttributes(offering) | limitTo: 1">
+							        		{{ courseAttribute.attributeAcronym }}</span><span ng-repeat = "courseAttribute in getCourseAttributes(offering) | limitTo: (1-getCourseAttributes(offering).length)">, {{ courseAttribute.attributeAcronym }}</span>
+						        		</div>
+					        		</div>
+					        		<div class = "showMoreRight">
+						        		<div class = "showMoreLine"><b>Dates:</b> {{ convertDate(course.start) }} - {{ convertDate(course.end) }}<br></div>
+						        		<div class = "showMoreLine" ng-show="offering.fee"><b>Fee: </b>{{ offering.fee }}</div>
+						        		<div class = "showMoreLine" ng-show="offering.findBooksLink"><a style = "color:inherit" href = "{{ offering.findBooksLink }}" target="_blank"><b>Find Books</b></a></div>
+
+					        		</div>
+				        		</div>
+			        		</div>
+			        		<div class = "footer" id = 'footer {{ $index }}'>
+				        		{{ course.credit }} credits. <a style = "text-decoration:underline;color:inherit" href="{{ course.bulletinLink }}" target="_blank">GW Bulletin</a>
+			        		</div>
+		        		</div>
+	        		</div>
+	        		<div id = "increaseLimit" ng-show = "courses.length>courseLimit" ng-click = "increaseLimit()">Load more &#8595;</div>
+        		</div>
+		</div>
+<!-- 		<div class = "innerBoxTwo" id = "listBox"></div> -->
+		<div class = "innerBoxTwo" id = "calendarBox">
+				<div class = "times">
+					<div class = "time">8am</div><br>
+					<div class = "time">9am</div><br>
+					<div class = "time">10am</div><br>
+					<div class = "time">11am</div><br>
+					<div class = "time">12am</div><br>
+					<div class = "time">1pm</div><br>
+					<div class = "time">2pm</div><br>
+					<div class = "time">3pm</div><br>
+					<div class = "time">4pm</div><br>
+					<div style = "margin-top: 29" class = "time">5pm</div><br>
+					<div class = "time">6pm</div><br>
+					<div class = "time">7pm</div><br>
+					<div class = "time">8pm</div><br>
+					<div style = "margin-top: 30" class = "time">9pm</div><br>
+					<div class = "time">10pm</div><br>
+				</div>
+				<table id = "cal">
+					<tr>
+					    <td id = "head"><span id = "mobileTH">m</span><span id = "normalTH">monday</span></td>
+					    <td id = "head"><span id = "mobileTH">t</span><span id = "normalTH">tuesday</span></td> 
+					    <td id = "head"><span id = "mobileTH">w</span><span id = "normalTH">wednesday</span></td>
+					    <td id = "head"><span id = "mobileTH">th</span><span id = "normalTH">thursday</span></td>
+					    <td id = "head"><span id = "mobileTH">f</span><span id = "normalTH">friday</span></td> 
+				  	</tr>
+					<tr>
+						<td>
+							<div class = "allHours" id = "mHours">
+								<div class = "firstHour" id = "hour0m"></div>
+								<div class = "hour" id = "hour1m"></div>
+								<div class = "hour" id = "hour2m"></div>
+								<div class = "hour" id = "hour3m"></div>
+								<div class = "hour" id = "hour4m"></div>
+								<div class = "hour" id = "hour5m"></div>
+								<div class = "hour" id = "hour6m"></div>
+								<div class = "hour" id = "hour7m"></div>
+								<div class = "hour" id = "hour8m"></div>
+								<div class = "hour" id = "hour9m"></div>
+								<div class = "hour" id = "hour10m"></div>
+								<div class = "hour" id = "hour11m"></div>
+								<div class = "hour" id = "hour12m"></div>
+								<div class = "hour" id = "hour13m"></div>
+							</div>
+						</td>
+						<td>
+							<div class = "allHours" id = "tHours">
+								<div class = "firstHour" id = "hour0t"></div>
+								<div class = "hour" id = "hour1t"></div>
+								<div class = "hour" id = "hour2t"></div>
+								<div class = "hour" id = "hour3t"></div>
+								<div class = "hour" id = "hour4t"></div>
+								<div class = "hour" id = "hour5t"></div>
+								<div class = "hour" id = "hour6t"></div>
+								<div class = "hour" id = "hour7t"></div>
+								<div class = "hour" id = "hour8t"></div>
+								<div class = "hour" id = "hour9t"></div>
+								<div class = "hour" id = "hour10t"></div>
+								<div class = "hour" id = "hour11t"></div>
+								<div class = "hour" id = "hour12t"></div>
+								<div class = "hour" id = "hour13t"></div>
+							</div>
+						</td> 
+						<td>
+							<div class = "allHours" id = "wHours">
+								<div class = "firstHour" id = "hour0w"></div>
+								<div class = "hour" id = "hour1w"></div>
+								<div class = "hour" id = "hour2w"></div>
+								<div class = "hour" id = "hour3w"></div>
+								<div class = "hour" id = "hour4w"></div>
+								<div class = "hour" id = "hour5w"></div>
+								<div class = "hour" id = "hour6w"></div>
+								<div class = "hour" id = "hour7w"></div>
+								<div class = "hour" id = "hour8w"></div>
+								<div class = "hour" id = "hour9w"></div>
+								<div class = "hour" id = "hour10w"></div>
+								<div class = "hour" id = "hour11w"></div>
+								<div class = "hour" id = "hour12w"></div>
+								<div class = "hour" id = "hour13w"></div>
+							</div>
+						</td>
+						<td>
+							<div class = "allHours" id = "rHours">
+								<div class = "firstHour" id = "hour0r"></div>
+								<div class = "hour" id = "hour1r"></div>
+								<div class = "hour" id = "hour2r"></div>
+								<div class = "hour" id = "hour3r"></div>
+								<div class = "hour" id = "hour4r"></div>
+								<div class = "hour" id = "hour5r"></div>
+								<div class = "hour" id = "hour6r"></div>
+								<div class = "hour" id = "hour7r"></div>
+								<div class = "hour" id = "hour8r"></div>
+								<div class = "hour" id = "hour9r"></div>
+								<div class = "hour" id = "hour10r"></div>
+								<div class = "hour" id = "hour11r"></div>
+								<div class = "hour" id = "hour12r"></div>
+								<div class = "hour" id = "hour13r"></div>
+							</div>
+						</td> 
+						<td>
+							<div class = "allHours" id = "fHours">
+								<div class = "firstHour" id = "hour0f"></div>
+								<div class = "hour" id = "hour1f"></div>
+								<div class = "hour" id = "hour2f"></div>
+								<div class = "hour" id = "hour3f"></div>
+								<div class = "hour" id = "hour4f"></div>
+								<div class = "hour" id = "hour5f"></div>
+								<div class = "hour" id = "hour6f"></div>
+								<div class = "hour" id = "hour7f"></div>
+								<div class = "hour" id = "hour8f"></div>
+								<div class = "hour" id = "hour9f"></div>
+								<div class = "hour" id = "hour10f"></div>
+								<div class = "hour" id = "hour11f"></div>
+								<div class = "hour" id = "hour12f"></div>
+								<div class = "hour" id = "hour13f"></div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+	</div>
+	<div id = "footer">
+		<div id = "tabButton1" class = "tabButton1" onclick="switchTabs(1)">
+			<img id = "magnifyingGlassIcon" src = "images/search.png" height = 65%>
+		</div>
+		<div id = "tabButton2" class = "tabButton2" onclick="switchTabs(2)">
+			<img style="margin-top:1" id = "listIcon" src = "images/listRed.png" height = 60%>
+			<!-- <span ng-show = "selectedOfferings.length" id = "offeringCountMobile"> {{ selectedOfferings.length }}</span></div> -->
+		</div>
+		<div id = "tabButton3" class = "tabButton2" onclick="switchTabs(3)">
+			<img id = "calendarIcon" src = "images/redCalendar.png" height = 65%>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/javascript.js"></script>	
+	<script type="text/javascript" src="js/jquery.timepicker.js"></script>
+	<script src="js/auto-complete.js"></script>
+	<script>
+		
+	function statusChangeCallback(response) {
+	  if (response.status === 'connected') {
+		document.getElementById('loginButton').style.display = 'none';
+		document.getElementById('loginButtonMobile').style.display = 'none';
+		
+		FB.api('/me', {fields: 'first_name, last_name, email'}, function(response) {
+			$.ajax({ url: 'php/logUserIn.php',
+				data: {'userID': response.id, 'firstName': response.first_name, 'lastName': response.last_name, 'email': response.email},
+				type: 'post',
+				success: function(data) {
+				 var div = document.getElementById('hiUser');
+				 var content = document.createTextNode("Hi, " + response.first_name + "!");
+				 div.appendChild(content);
+				 document.getElementById('logOut').style.display = 'block';
+				 document.getElementById('logBR').style.display = 'block';
+
+				 userID = response.id;
+				 angular.element(document.getElementById('body')).scope().updateCalendar();
+				},
+			});
+		});
+					
+	    // Logged into your app and Facebook.
+	    console.log('connected');
+	  } else {
+	    console.log('not connected');
+	  }
+	}	
+	
+	function logOut() {
+		FB.logout(function(response) {
+			window.location.reload();
+   		});
+	}
+	
+	window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '345250892579803',
+	    cookie     : true,
+	    xfbml      : true,
+	    version    : 'v2.8'
+	  });
+	  FB.AppEvents.logPageView();  
+	  FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	  }); 
+	};
+	
+	function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+	
+	(function(d, s, id){
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) {return;}
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));   
+	   
+	</script>
+    <script>
+        var demo1 = new autoComplete({
+            selector: '#hero-demo',
+            minChars: 2,
+            source: function(term, response){
+	            var trimmed = term.trim();
+	            $.getJSON ('php/getAutocomplete.php?autoCompleteText=' + trimmed + '&picked=' + departmentPicked + courseAttributePicked + instructorPicked + CRNPicked + courseNamePicked + courseNumber1Picked, function(data) {
+		            response (data); }
+		         );
+			},
+			onSelect: function(e, term, item){
+				createBlock(term);
+            },
+			renderItem: function (item, search){
+				var color = "";
+				if (item.substring(0, 2) === "IN") {
+					if (instructorPicked == 1) {
+						return '<div></div>';
+					}
+					color = "#7e273e";
+				} else if (item.substring(0, 2) === "DE") {
+					if (departmentPicked == 1) {
+						return '<div></div>';
+					}
+					color = "#342c56";
+				} else if (item.substring(0, 9) === "COURSE NA") {
+					if (courseNamePicked == 1) {
+						return '<div></div>';
+					}
+					color = "#c92125";
+				} else if (item.substring(0, 8) === "COURSE A") {
+					if (courseAttributePicked == 1) {
+						return '<div></div>';
+					}
+					color = "#b0232d";
+				} else if (item.substring(0, 9) === "COURSE NU") {
+					if (courseNumber1Picked == 1) {
+						return '<div></div>';
+					}
+					color = "#662846";
+				} else if (item.substring(0, 2) === "CR") {
+					if (CRNPicked == 1) {
+						return '<div></div>';
+					}
+					color = "#972535";
+				} else if (item.substring(0, 9) === "STATUS: O") {
+					if (openPicked == 1) {
+						return '<div></div>';					}
+					color = "#4d2a4e";
+				} else if (item.substring(0, 9) === "STATUS: C") {
+					if (closedPicked == 1) {
+						return '<div></div>';					}
+					color = "#4d2a4e";
+				} else if (item.substring(0, 9) === "STATUS: W") {
+					if (waitlistPicked == 1) {
+						return '<div></div>';					}
+					color = "#4d2a4e";
+				} 
+				
+			    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+			    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+			    
+			    return '<div class="autocomplete-suggestion" style="color:' + color +';letter-spacing: -1; line-height: 17px;" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+			}
+        });
+        
+        var demo2 = new autoComplete({
+            selector: '#department',
+            minChars: 0,
+            source: function(term, response){
+	            
+	            var tmp =JSON.stringify(angular.element(document.getElementById("body")).scope().courses);
+	            	            	            
+	            $.ajax({ url: 'php/getDepartmentList.php',
+				         data: {'listed': tmp, 'input': term},
+				         type: 'post',
+				         dataType: 'json',
+				         success: function(data) {
+				             response (data);
+				         },
+				});
+				
+			},
+			renderItem: function (item, search){
+			    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+			    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+			    return '<div class="autocomplete-suggestion" style="letter-spacing: -1; font-size: 14" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+			},
+			onSelect: function(e, term, item){
+				var string = term.substring(0, term.indexOf('(')-1);
+                document.getElementById('department').value = string;
+				createBlockMoreFilters('DEPARTMENT: ' + term + ' (2)');
+				callGetCourses();
+            }
+        });
+        
+        var demo3 = new autoComplete({
+            selector: '#instructor',
+            minChars: 0,
+            source: function(term, response){
+	            
+	            var tmp = JSON.stringify(angular.element(document.getElementById("body")).scope().instructors);
+	            
+	            $.ajax({ url: 'php/getInstructorList.php',
+				         data: {'listed': tmp, 'input': term},	
+				         type: 'post',
+						 dataType: "JSON",
+				         success: function(data) {
+				             response (data);
+				         }
+				});
+	            
+			},
+			renderItem: function (item, search){
+			    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+			    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+			    return '<div class="autocomplete-suggestion" style="letter-spacing: -1; font-size: 14" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+			},
+			onSelect: function(e, term, item){
+				var string = term.substring(0, term.indexOf('(')-1);
+                document.getElementById('instructor').value = string;
+                createBlockMoreFilters('INSTRUCTOR: ' + term + ' (2)');
+                callGetCourses()
+            }
+        });
+        
+        var demo4 = new autoComplete({
+            selector: '#courseAttribute',
+            minChars: 0,
+            source: function(term, response){
+	            
+	            var tmp = JSON.stringify(angular.element(document.getElementById("body")).scope().offerings);
+	            
+	            $.ajax({ url: 'php/getAttributeList.php',
+				         data: {'listed': tmp, 'input': term},	
+				         type: 'post',
+						 dataType: "JSON",
+				         success: function(data) {
+				             response (data);
+				         }
+				});
+				
+			},
+			renderItem: function (item, search){
+			    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+			    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+			    return '<div class="autocomplete-suggestion" style="letter-spacing: -1; font-size: 14" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+			},
+			onSelect: function(e, term, item){
+				if (term.includes("(", term.indexOf('(')+1)) {
+					var newIndex = term.indexOf('(', term.indexOf('(')+1) - 1;
+					var string = term.substring(0, newIndex);
+				} else {
+					var string = term.substring(0, term.indexOf('(')-1);
+				}
+                document.getElementById('courseAttribute').value = string;
+	            createBlockMoreFilters('COURSE ATTRIBUTE: ' + term + ' (2)');
+	            callGetCourses()
+            }
+        });
+        
+        var demo5 = new autoComplete({
+            selector: '#credit',
+            minChars: 0,
+            source: function(term, response){
+	           
+	           var tmp = JSON.stringify(angular.element(document.getElementById("body")).scope().courses);
+	            
+	            $.ajax({ url: 'php/getCreditList.php',
+				         data: {'listed': tmp, 'input': term},	
+				         type: 'post',
+						 dataType: "JSON",
+				         success: function(data) {
+				             response (data);
+				         }
+				});
+	           
+			},
+			renderItem: function (item, search){
+			    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+			    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+			    return '<div class="autocomplete-suggestion" style="letter-spacing: -1; font-size: 14" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+			},
+			onSelect: function(e, term, item){
+				var string = term.substring(0, term.indexOf('(')-1);
+                document.getElementById('credit').value = string;
+                callGetCourses()
+            }
+        });
+    </script>
+    <script>
+        $(function() {
+            $('#endTime').timepicker({ 'scrollDefault': '8:00am' });
+        });
+    </script>
+    <script>
+        $(function() {
+            $('#startTime').timepicker({ 'scrollDefault': '8:00am' });
+        });
+    </script>
+</body>
+</html>
+
+<!-- ng-keypress="getAutoComplete()"  -->
+

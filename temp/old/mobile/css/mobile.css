@@ -1,0 +1,141 @@
+#logo {
+	float:left;
+	width: 45%;
+	margin: 5% 0px 0px 5%;
+}
+
+#tagline {
+	color: E12B23;
+	font-family: Avenir;
+	font-weight: 500;
+	line-height: 50px;
+	font-size: 40;
+	text-align: center;
+	float:right;
+	margin: 4.5% 0px 0px 0px;
+	width: 45%;
+}
+
+#signIn{
+	margin: 5% 0 0 15%;
+	float:left;
+}
+
+#signIn a{
+	font-weight: bold;
+	color: E12B23;
+	font-family: Avenir;
+	font-size: 40;
+}
+
+#aboutx{
+	margin: 5% 15% 0 0;
+	float:right;
+}
+
+#aboutx a{
+	font-weight: bold;
+	color: E12B23;
+	font-family: Avenir;
+	font-size: 40;
+}
+
+#search {
+	overflow: hidden;
+	background-color: E5E5E5;
+	margin-top: 5%;
+	left: 0;
+	width: 100%;
+	padding: 5% 5% 5% 5%;
+}
+
+#fullBox {
+	height: 300px;
+	background-color: E5E5E5;
+	margin-top: 5%;
+	left: 0;
+	width: 100%;
+	padding: 5% 5% 5% 5%;
+}
+
+#fitButton {
+	background-color: E5E5E5;
+	border-radius: 16;
+	border: solid;
+	border-color: E12B23;
+	color: E12B23;
+	font-family: Avenir;
+	font-weight: 500;
+	padding: 2% 0 2% 0;
+	text-align: center;
+	font-size: 40;
+	margin-bottom: 5%;
+}
+
+#openButton {
+	background-color: E5E5E5;
+	border-radius: 16;
+	border: solid;
+	border-color: 459436;
+	color: 459436;
+	font-family: Avenir;
+	font-weight: 500;
+	padding: 2% 2% 2% 2%;
+	text-align: center;
+	font-size: 40;
+	margin-bottom: 4%;
+}
+
+.inputLabel {
+	font-family: Avenir;
+	font-weight: bold;
+	font-size: 40;	
+}
+
+.dayButton {
+	width: 11.5%;
+	float:left;
+	background-color: E5E5E5;
+	border-radius: 16;
+	border: solid;
+	border-color: E12B23;
+	color: E12B23;
+	font-family: Avenir;
+	font-weight: bold;
+	padding: 2% 0 2% 0;
+	text-align: center;
+	font-size: 45;
+	margin: 3% 3% 0 0;
+}
+
+#WIDButton {
+	float:left;
+	clear: both;
+	width: 30%;
+	background-color: E5E5E5;
+	border-radius: 16;
+	border: solid;
+	border-color: E12B23;
+	color: E12B23;
+	font-family: Avenir;
+	font-weight: 500;
+	padding: 2% 0 2% 0;
+	text-align: center;
+	font-size: 40;
+}
+
+#DeansButton {
+	float: left;
+	width: 60%;
+	margin-left: 5%;
+	background-color: E5E5E5;
+	border-radius: 16;
+	border: solid;
+	border-color: E12B23;
+	color: E12B23;
+	font-family: Avenir;
+	font-weight: 500;
+	padding: 2% 0 2% 0;
+	text-align: center;
+	font-size: 40;
+}
